@@ -1,0 +1,33 @@
+---
+title: "Find the treasure"
+date: "May 8th 2019"
+---
+
+```{r, echo=FALSE}
+library(leaflet)
+pirateIcon <- icons(
+    iconUrl = c(rep("icon1.png",11),"icon2.png"),
+    iconWidth = 31*215/230,
+    iconHeight = 31,
+    iconAnchorX = 31*215/230/2,
+    iconAnchorY = 16
+)
+
+df <- data.frame(lat=c(18.30519, 18.43288, 18.11309, 18.36769,
+                       18.31519, 18.49288, 18.21309, 18.46769,
+                       18.40519, 18.413288, 18.221309, 18.26769), 
+                 lng=c(-77.83746, -77.51491, -77.31855, -77.15000,
+                       -77.73746, -77.61491, -77.41855, -77.25000,
+                       -77.53746, -77.52491, -77.32855, -77.85000))
+
+my_map <- df %>%
+    leaflet() %>%
+    setView(lat = 18.2500000, lng = -77.5000000, zoom = 05) %>%
+    addTiles() %>%
+    addMarkers(clusterOptions = markerClusterOptions(), 
+               icon = pirateIcon)
+my_map
+
+
+```
+
