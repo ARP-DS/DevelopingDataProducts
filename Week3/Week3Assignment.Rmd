@@ -1,0 +1,18 @@
+---
+title: "World Temperature Increase"
+date: "May 10th, 2019"
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+
+url <- "https://data.giss.nasa.gov/gistemp/tabledata_v3/GLB.Ts+dSST.csv"
+download.file(url,destfile = "GLB.Ts+dSST.csv")
+data1 <- read.csv("GLB.Ts+dSST.csv", skip = 1, header=T, sep=",")
+data2 <- data1[1:139,1:13]
+
+data3 <- as.data.frame(sapply(data2, function(x) as.numeric(as.character(x))))
+data4 <- data.frame(Year=data3$Year, TempIncrease=apply(data3[,2:13],1,mean))
+
+plot_ly(data4, x=~Year, y=~TempIncrease, type = "scatter", mode = "lines")
+```
