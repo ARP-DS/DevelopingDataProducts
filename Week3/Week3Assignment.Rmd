@@ -1,7 +1,20 @@
 ---
-title: "World Temperature Increase"
+title: "Week 3 assignment"
 date: "May 10th, 2019"
+output: ioslides_presentation
 ---
+
+## Introduction
+
+- Source data used in this exercise is placed in: "https://data.giss.nasa.gov/gistemp/tabledata_v3"
+
+- Data set contains mainly the world temperature increase per month since 1880 until 2018. 
+
+- A cleaning data process is performed to select only the variables needed and to calculate the increase mean per year.
+
+- The following plot is a graphical representation of the temperature increases over the last 32 years.
+
+## World Temperature Increase
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(plotly)
