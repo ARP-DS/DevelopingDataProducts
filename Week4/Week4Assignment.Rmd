@@ -16,7 +16,7 @@ runtime: shiny
 - Source data used is placed in: https://www.idescat.cat/pub/?id=aec&n=218&lang=es
 
 
-## Month ~ Temperature of each depth per year
+## Monthly temperatures
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 
@@ -43,7 +43,7 @@ output$plot1 <- renderPlotly({
 ```
 
 
-## Depth ~ Temperatures of each month per year
+## Temperatures for each depth
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(dplyr)
