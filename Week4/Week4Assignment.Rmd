@@ -43,7 +43,7 @@ output$plot1 <- renderPlotly({
 ```
 
 
-## Temperatures for each depth
+## Temperatures variation in depth
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(dplyr)
