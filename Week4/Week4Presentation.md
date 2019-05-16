@@ -27,5 +27,6 @@ Temperatures variation in depth
 ![plot of chunk unnamed-chunk-2](Week4Presentation-figure/unnamed-chunk-2-1.png)
 
 Temperature prediction on August 2030 in -20 meters depth
+
 ========================================================
 ![plot of chunk unnamed-chunk-3](Week4Presentation-figure/unnamed-chunk-3-1.png)

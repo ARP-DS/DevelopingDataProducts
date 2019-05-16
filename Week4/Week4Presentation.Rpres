@@ -47,6 +47,7 @@ ggplot(workdata,aes(x=Depth,y=Temperature,group=1))+ geom_line()+ facet_wrap(.~ 
 ```
 
 Temperature prediction on August 2030 in -20 meters depth
+
 ========================================================
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 temp <- inidata[inidata$Month=="August",]
