@@ -1,4 +1,4 @@
-Week4Presentation.Rmd
+Week4Presentation
 ========================================================
 autosize: true
 
