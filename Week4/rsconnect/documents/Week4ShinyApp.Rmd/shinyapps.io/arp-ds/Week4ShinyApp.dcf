@@ -1,0 +1,12 @@
+name: Week4ShinyApp
+title: Week4ShinyApp
+username:
+account: arp-ds
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 932876
+bundleId: 2088571
+url: https://arp-ds.shinyapps.io/Week4ShinyApp/
+when: 1557995454.97095
+asMultiple: FALSE
+asStatic: FALSE

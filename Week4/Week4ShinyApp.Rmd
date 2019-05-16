@@ -1,11 +1,37 @@
+---
+title: "Week4ShinyApp"
+date: "May 16th 2019"
+output: html_document
+runtime: shiny
+---
+
+## Temperature prediction on North West Mediterranean Sea.
+
+Select the depth (expressed in meters), the month and the year for which you want to predict the temperature.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(ggplot2)
-library(shiny)
 
 inidata <- read.table(file = "SeaTemps.txt", header=TRUE,sep=",")
 
-shinyServer(
-    function(input, output) {
-        output$plot3 <- renderPlot({
+pageWithSidebar(
+    headerPanel(""),
+    sidebarPanel(
+        radioButtons("iDepth", "Depth",
+                     choices = c("0" = 3, "-20"=4, "-50"=5, "-80"=6), selected = 3),
+        selectInput("iMonth", "Month", 
+                    choices = list("January","Febrary","March","April", "May", "June",
+                                   "July", "August",
+                                   "September", "October","November","December"),
+                    selected = "January", multiple = FALSE),
+        sliderInput("iYear", 'Year', value = 2018, min = 2018, max = 2040, sep="")
+    ),
+    mainPanel(
+        plotOutput('plot3')
+    )
+)
+
+output$plot3 <- renderPlot({
             temp <- inidata[inidata$Month==input$iMonth,]
             workdata <- data.frame(Year=temp$Year, Temperature=temp[,as.numeric(input$iDepth)])
             modelFit <- lm(Temperature~Year, data=workdata)
@@ -15,6 +41,7 @@ shinyServer(
             prmessage <- paste0("Temperature predicted: ", pr, "C")
             ggplot(workdata, aes(Year, Temperature)) + geom_point(color="blue") + 
                 geom_smooth(data=predictedData,aes(x=Year, y=Temperature), method = "lm",se=FALSE,color="red")+geom_vline(aes(xintercept=2017)) +geom_point(aes(x=input$iYear,y=predictedData[predictedData$Year==input$iYear,2]),color="red",lwd=5)+geom_text(x=2030,y=13,label=prmessage)+ylim(10,25)
-        })
-    }
-)
+})
+```
+
+

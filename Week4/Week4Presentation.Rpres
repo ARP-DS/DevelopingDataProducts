@@ -1,0 +1,61 @@
+Week4Presentation.Rmd
+========================================================
+autosize: true
+
+Introduction
+========================================================
+
+- Sea temperatures from North West Mediterranean zone are analyzed in this exercise.
+
+- Temperatures are measured in different depths: 0, -20, -50 and -80 meters.
+
+- There is a mesure per each month since 2000 until 2017.
+
+- Source data used is placed in: https://www.idescat.cat/pub/?id=aec&n=218&lang=es
+
+Monthly temperatures
+========================================================
+
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+inidata <- read.table(file = "SeaTemps.txt", header=TRUE,sep=",")
+
+workdata <- inidata %>%
+    filter(Year==2017) %>%
+    select(-Year) %>%
+    gather(Depth,Temperature, -Month) %>%
+    mutate(Month=factor(Month, levels = month.name)) 
+
+g <- ggplot(workdata, aes(x=Month, y=Temperature))
+g <- g+geom_bar(aes(fill=Depth),stat = "identity")
+g
+```
+
+
+
+Temperatures variation in depth
+========================================================
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+ggplot(workdata,aes(x=Depth,y=Temperature,group=1))+ geom_line()+ facet_wrap(.~ Month, ncol = 4)+ scale_x_discrete(labels= c("0", "-20", "-50", "-80"))
+
+```
+
+Temperature prediction on August 2030 in -20 meters depth
+========================================================
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+temp <- inidata[inidata$Month=="August",]
+workdata <- data.frame(Year=temp$Year, Temperature=temp[,4])
+modelFit <- lm(Temperature~Year, data=workdata)
+predictedTemps <- round(predict(modelFit, newdata=data.frame(Year=2000:2040)),1)
+predictedData <- data.frame(Year=2000:2040, Temperature=predictedTemps)
+pr <- as.character(predictedData[predictedData$Year==2030,2])
+prmessage <- paste0("Temperature predicted: ", pr, "C")
+ggplot(workdata, aes(Year, Temperature)) + geom_point(color="blue") + 
+    geom_smooth(data=predictedData,aes(x=Year, y=Temperature), method = "lm",se=FALSE,color="red")+geom_vline(aes(xintercept=2017)) +geom_point(aes(x=2030,y=predictedData[predictedData$Year==2030,2]),color="red",lwd=5)+geom_text(x=2030,y=13,label=prmessage)+ylim(10,25)
+```
